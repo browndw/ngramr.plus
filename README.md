@@ -17,4 +17,22 @@ devtools::install_github("browndw/ngramr.plus")
 ```
 ## Running vnc
 
-The package contains
+The **google_ngram( )** function takes three arguments: **word_forms**, **variety**, and **by**. The first can be a single word like *teenager* or lemmas like *walk*, *walks* and *walked* that are put into a vector: **c("walk", "walks", "walked")**. The same principal applies to ngrams > 1: **c("teenager is", "teenagers are")**. The first word in an ngram sequence should be from the same root. So the function would **fail** to process *c("teenager is", "child is"). The function will combine the counts of all forms in the returned data frame.
+
+The variety argument can be one of: **eng**, **gb**, **us**, or **fiction**, for all English, British English, American English, or fiction, respectively.
+
+The function can also return counts summed and normalized by year or by decade using the by argument: **by="year"** or **by="decade")**.
+
+### Examples
+
+The following would return counts for the word *xray* in US English by year:
+
+```r
+xray_year <- google_ngram(word_forms = "xray", variety = "us", by = "year")
+```
+
+Alternatively, the following would return counts of the combined forms *xray* and *xrays* in British English by decade:
+
+```r
+xray_decade <- google_ngram(word_forms = c("xray", "xrays"), variety = "gb", by = "decade")
+```
