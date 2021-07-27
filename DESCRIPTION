@@ -1,0 +1,26 @@
+Package: ngramr.plus
+Title: Returns Ngram Counts from Google Books Data
+Version: 1.0
+Authors@R: 
+    person(given = "David",
+           family = "Brown",
+           role = c("aut", "cre"),
+           email = "dwb2@andrew.cmu.edu",
+           comment = c(ORCID = "YOUR-ORCID-ID"))
+Description:
+	The package ngramr.plus extracts frequency data from Google Books' Ngram data:
+	http://storage.googleapis.com/books/ngrams/books/datasetsv2.html
+	The google_ngram() function is set up to facilitate the counting
+	of lemmas and ingnore differences in capitalization.
+	The user has control over what to combine into counts with
+	the word_forms argument.
+License: `use_mit_license()`, `use_gpl3_license()` or friends to pick a
+    license
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.1
+Imports:
+    readr, 
+    stringr, 
+    ggplot2
