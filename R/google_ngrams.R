@@ -48,7 +48,7 @@ google_ngram <- function(word_forms, variety=c("eng", "gb", "us", "fiction"), by
   all_tokens <- subset(all_grams, grepl(grep_words, all_grams$token, ignore.case=TRUE))
   all_tokens$token <- tolower(all_tokens$token)
   sum_tokens <- aggregate(AF ~ Year, all_tokens, sum)
-  sum_tokens$Decade <- gsub("\\d$", "0", sum_tokens$Year)
+  if (by == "decade") sum_tokens$Decade <- gsub("\\d$", "0", sum_tokens$Year)
   if (by == "decade") sum_tokens <- aggregate(AF ~ Decade, sum_tokens, sum)
   if (by == "year") sum_tokens <- merge(sum_tokens, y = total_counts[,c(1:2)], by = "Year")
   if (by == "decade") sum_tokens <- merge(sum_tokens, y = total_counts[,c(1:2)], by = "Decade")
