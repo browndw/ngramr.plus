@@ -23,7 +23,7 @@ google_ngram <- function(word_forms, variety=c("eng", "gb", "us", "fiction"), by
   n <- lapply(word_forms, function(x) stringr::str_count(x, "\\S+"))
   n <- unique(n)
   if(length(n) > 1)  stop ("Check spelling. Word forms should be lemmas of the same word (e.g. 'teenager' and 'teenagers' or 'walk' , 'walks' and 'walked'")
-  if(n > 5)  stop ("Ngrams can be a maximum of 5 tokens. Hyphenated words are also split and include the hyphen, so 'x-ray' would count as 3 tokens.")
+  if(n > 5)  stop ("Ngrams can be a maximum of 5 tokens. Hyphenated words are split and include the hyphen, so 'x-ray' would count as 3 tokens.")
   gram <- ifelse(n > 1, lapply(word_forms, function(x) substring(x, 1, 2)), lapply(word_forms, function(x) substring(x, 1, 1)))
   gram <- tolower(unique(gram))
   if(length(gram) > 1)  stop ("Check spelling. Word forms should be lemmas of the same word (e.g. 'teenager' and 'teenagers' or 'walk' , 'walks' and 'walked'")
