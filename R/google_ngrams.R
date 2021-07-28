@@ -36,6 +36,7 @@ google_ngram <- function(word_forms, variety=c("eng", "gb", "us", "fiction"), by
   if(variety == "eng") repo <- paste0("http://storage.googleapis.com/books/ngrams/books/googlebooks-eng-all-", n, "gram-20120701-", gram, ".gz")
   if(variety != "eng") repo <- paste0("http://storage.googleapis.com/books/ngrams/books/googlebooks-eng-", variety, "-all-", n, "gram-20120701-", gram, ".gz")
 
+  word_forms <- stringr::str_replace_all(word_forms, "(\\.|\\?|\\$|\\^|\\)|\\(|\\}|\\{|\\]|\\[|\\*)", "\\\\\\1")
   grep_words <- paste0("^", word_forms, "$", collapse = "|")
   all_grams <- suppressWarnings(readr::read_tsv_chunked(repo, col_names = FALSE, col_types = list(X1 = readr::col_character(), X2 = readr::col_double(), X3 = readr::col_double(), X4 = readr::col_double()), quote = "", callback = readr::DataFrameCallback$new(function(x, pos) subset(x, grepl(grep_words, x$X1, ignore.case=TRUE))), progress = T))
   colnames(all_grams) <- c("token", "Year", "AF", "pages")
