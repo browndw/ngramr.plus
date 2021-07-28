@@ -35,12 +35,14 @@ google_ngram <- function(word_forms, variety=c("eng", "gb", "us", "fiction"), by
   
   if(variety == "eng") repo <- paste0("http://storage.googleapis.com/books/ngrams/books/googlebooks-eng-all-", n, "gram-20120701-", gram, ".gz")
   if(variety != "eng") repo <- paste0("http://storage.googleapis.com/books/ngrams/books/googlebooks-eng-", variety, "-all-", n, "gram-20120701-", gram, ".gz")
-
+  
+  message("Accessing repository. For larger ones (e.g., ngrams containting 2 or more words) this may take a few minutes. A progress bar should appear shortly...")
+  
   word_forms <- stringr::str_replace_all(word_forms, "(\\.|\\?|\\$|\\^|\\)|\\(|\\}|\\{|\\]|\\[|\\*)", "\\\\\\1")
   grep_words <- paste0("^", word_forms, "$", collapse = "|")
   all_grams <- suppressWarnings(readr::read_tsv_chunked(repo, col_names = FALSE, col_types = list(X1 = readr::col_character(), X2 = readr::col_double(), X3 = readr::col_double(), X4 = readr::col_double()), quote = "", callback = readr::DataFrameCallback$new(function(x, pos) subset(x, grepl(grep_words, x$X1, ignore.case=TRUE))), progress = T))
   colnames(all_grams) <- c("token", "Year", "AF", "pages")
-
+  
   if(variety == "eng") repo_total <-("http://storage.googleapis.com/books/ngrams/books/googlebooks-eng-all-totalcounts-20120701.txt")
   if(variety != "eng") repo_total <-paste0("http://storage.googleapis.com/books/ngrams/books/googlebooks-eng-", variety, "-all-totalcounts-20120701.txt")
   total_counts <- suppressWarnings(read.csv(repo_total, header = FALSE, sep = "\t", quote = ""))
