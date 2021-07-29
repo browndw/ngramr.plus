@@ -31,63 +31,26 @@ library(tidyverse)
 
 ## Retriveing data
 
-Running the functions is straightforward, but remember that it can take a couple minutes if your are loading one of the larger Google Books data tables. Here we return counts of "xray" by year from the data tables for US English.
+Running the functions is straightforward, but remember that it can take a couple minutes if your are loading one of the larger Google Books data tables. Here we return counts of *zinger* by year from the data tables for US English.
 
 ```{r xray_year, message=FALSE, results='hide'}
-xray_year <- google_ngram(word_forms = "xray", variety = "us", by = "year")
+z_year <- google_ngram(word_forms = "zinger", variety = "us", by = "year")
 ```
 
 Check the data:
 
 ```{r echo=FALSE}
-knitr::kable(head(xray_year))
+knitr::kable(head(z_year))
 ```
 
-Next, we'll return counts of "xray" and "xrays" by decade from the data tables for British English.
+In current usage, *zinger* denotes a kind of cutting quip. Its [supposed origin](https://www.etymonline.com/word/zinger) is as a baseball term that becomes generalized in the middle of the 20th century. Does this explanation comport with the data?
 
-```{r xray_decade, message=FALSE, results='hide'}
-xray_decade <- google_ngram(word_forms = c("xray", "xrays"), variety = "gb", by = "decade")
-```
+## Plot the data
 
-Check the data:
-
-```{r echo=FALSE}
-knitr::kable(head(xray_decade))
-```
-
-Why is there data from the 17th century when the x-ray wasn't discovered until the late 19th century?
-
-Because of the scale of Google Books, it relies on optical character recognition(OCR) for turning images into text.
-
-As happens, it looks like a couple of texts ([here](https://www.google.com/books/edition/A_Commentary_On_The_Five_Books_of_Moses/bzeaVmTWVboC?hl=en&gbpv=1&dq=%22x-ray%22&pg=RA6-PA37&printsec=frontcover) and [here](https://www.google.com/books/edition/Energy_Resource_Studies_Northern_Front_R/DHxRAQAAIAAJ?hl=en&gbpv=1&dq=%22x-ray%22&pg=PA82&printsec=frontcover)) have been mis-dated.
-
-The mis-dating of of more recent texts is less of problem as there are orders of magnitude more data. In earlier centuries, one needs to be careful as the data is more sparse.
-
-Also note that that the Google data tables do not include words that occur fewer than 50 times. So rare words can be harder to track.
-
-## Ploting the data
-
-First we'll filter and plot our by-decade data:
-
-```{r decade_plot, fig.height=4.5, fig.width=7}
-ggplot(xray_decade %>% filter(decade > 1890), aes(x=decade, y=counts_permil)) +
-  geom_bar(stat = "identity") +
-  labs(x="decade", y = "frequency (per million words)")+ 
-  theme(panel.grid.minor.x=element_blank(),
-         panel.grid.major.x=element_blank()) +
-  theme(panel.grid.minor.y =   element_blank(),
-        panel.grid.major.y =   element_line(colour = "gray",size=0.25)) +
-  theme(rect = element_blank()) +
-  theme(legend.title=element_blank()) +
-  theme(axis.title = element_text(family = "Arial", color="#666666", face="bold", size=10))
-```
-
-
-And a by-year plot:
-
+To partly answer such a question, we can plot the data:
 
 ```{r year_plot, fig.height=4.5, fig.width=7}
-  ggplot(xray_year %>% filter(decade > 1899), aes(x=year, y=counts_permil)) +
+  ggplot(z_year %>% filter(Year > 1799), aes(x=Year, y=Per_10.6)) +
     geom_point(size = .5) +
     geom_smooth(method = "gam", formula = y ~ s(x, bs = "cs"), size=.25) +
     labs(x="year", y = "frequency (per million words)")+ 
@@ -99,6 +62,40 @@ And a by-year plot:
     theme(legend.title=element_blank()) +
     theme(axis.title = element_text(family = "Arial", color="#666666", face="bold", size=10))
 ```
+
+There does appear to be some circulation prior to the mid-20th century. To explain that, we can look at [the underlying texts in Google Books](https://www.google.com/search?q=%22zinger%22&tbm=bks&tbs=cdr:1,cd_min:1800,cd_max:1893&lr=lang_en).
+
+## By decade
+
+Next, we'll return counts of *zinger* and *zingers* by decade from the data tables for British English.
+
+```{r xray_decade, message=FALSE, results='hide'}
+z_decade <- google_ngram(word_forms = c("zinger", "zingers"), variety = "gb", by = "decade")
+```
+
+Check the data:
+
+```{r echo=FALSE}
+knitr::kable(head(z_decade))
+```
+
+## Ploting the data
+
+Now we can filter and plot our by-decade data:
+
+```{r decade_plot, fig.height=4.5, fig.width=7}
+ggplot(z_decade %>% filter(Decade > 1799), aes(x=Decade, y=Per_10.6)) +
+  geom_bar(stat = "identity") +
+  labs(x="decade", y = "frequency (per million words)")+ 
+  theme(panel.grid.minor.x=element_blank(),
+         panel.grid.major.x=element_blank()) +
+  theme(panel.grid.minor.y =   element_blank(),
+        panel.grid.major.y =   element_line(colour = "gray",size=0.25)) +
+  theme(rect = element_blank()) +
+  theme(legend.title=element_blank()) +
+  theme(axis.title = element_text(family = "Arial", color="#666666", face="bold", size=10))
+```
+
 
 ## Bibliography
 
