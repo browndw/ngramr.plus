@@ -23,15 +23,15 @@ The variety argument can be one of: **eng**, **gb**, **us**, or **fiction**, for
 
 The function can also return counts summed and normalized by year or by decade using the by argument: **by="year"** or **by="decade")**.
 
-The following would return counts for the word *xray* in US English by year:
+The following would return counts for the word *x-ray* in US English by year:
 
 ```r
-xray_year <- google_ngram(word_forms = "xray", variety = "us", by = "year")
+xray_year <- google_ngram(word_forms = "x-ray", variety = "us", by = "year")
 ```
 
 Alternatively, the following would return counts of the combined forms *xray* and *xrays* in British English by decade:
 
 ```r
-xray_decade <- google_ngram(word_forms = c("xray", "xrays"), variety = "gb", by = "decade")
+xray_decade <- google_ngram(word_forms = c("x-ray", "x-rays"), variety = "gb", by = "decade")
 ```
-For more detail, see the vignette.
+For more detail, see the [vignette]().
