@@ -34,4 +34,4 @@ Alternatively, the following would return counts of the combined forms *xray* an
 ```r
 xray_decade <- google_ngram(word_forms = c("x-ray", "x-rays"), variety = "gb", by = "decade")
 ```
-For more detail, see the [vignette]().
+For more detail, see the [vignette](http://htmlpreview.github.io/?https://raw.githubusercontent.com/browndw/ngramr.plus/main/vignettes/introduction.html).
