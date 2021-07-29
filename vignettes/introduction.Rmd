@@ -29,7 +29,7 @@ library(ngramr.plus)
 library(tidyverse)
 ```
 
-## Retriveing data
+## Retrieving data
 
 Running the functions is straightforward, but remember that it can take a couple minutes if your are loading one of the larger Google Books data tables. Here we return counts of *zinger* by year from the data tables for US English.
 
