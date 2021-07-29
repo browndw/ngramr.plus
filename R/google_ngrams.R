@@ -57,6 +57,7 @@ google_ngram <- function(word_forms, variety=c("eng", "gb", "us", "fiction"), by
   if(by == "decade") sum_tokens$Decade <- gsub("\\d$", "0", sum_tokens$Year)
   if(by == "decade") sum_tokens <- aggregate(AF ~ Decade, sum_tokens, sum)
   if(by == "decade") sum_tokens <- merge(sum_tokens, y = total_counts[,c(1:2)], by = "Decade")
+  if(by == "decade") sum_tokens$Decade <- as.numeric(sum_tokens$Decade)
   if(by == "year") sum_tokens <- merge(sum_tokens, y = total_counts[,c(1:2)], by = "Year")
   
   counts_norm <- mapply(function(x,y) (x/y)*1000000, sum_tokens$AF, sum_tokens$Total)
