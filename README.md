@@ -15,23 +15,5 @@ Use devtools to install the package.
 ```r
 devtools::install_github("browndw/ngramr.plus")
 ```
-## Running ngramr.plus
 
-The **google_ngram( )** function takes three arguments: **word_forms**, **variety**, and **by**. The first can be a single word like *teenager* or lemmas like *walk*, *walks* and *walked* that are put into a vector: **c("walk", "walks", "walked")**. The same principal applies to ngrams > 1: **c("teenager is", "teenagers are")**. The first word in an ngram sequence should be from the same root. So the function would **fail** to process *c("teenager is", "child is"). The function will combine the counts of all forms in the returned data frame.
-
-The variety argument can be one of: **eng**, **gb**, **us**, or **fiction**, for all English, British English, American English, or fiction, respectively.
-
-The function can also return counts summed and normalized by year or by decade using the by argument: **by="year"** or **by="decade")**.
-
-The following would return counts for the word *x-ray* in US English by year:
-
-```r
-xray_year <- google_ngram(word_forms = "x-ray", variety = "us", by = "year")
-```
-
-Alternatively, the following would return counts of the combined forms *xray* and *xrays* in British English by decade:
-
-```r
-xray_decade <- google_ngram(word_forms = c("x-ray", "x-rays"), variety = "gb", by = "decade")
-```
-For more detail, see the [vignette](http://htmlpreview.github.io/?https://raw.githubusercontent.com/browndw/ngramr.plus/main/vignettes/introduction.html).
+The package documentation is available on [readthedocs](https://cmu-textstat-docs.readthedocs.io/en/latest/ngramr.plus/ngramr.plus.html)
