@@ -16,6 +16,7 @@
 #' @param variety The variety of English to be searched
 #' @param by Whether the counts should be summed by year or by decade
 #' @return A data.frame of counts from Google Books
+#' @importFrom stats aggregate
 #' @export
 google_ngram <- function(word_forms, variety=c("eng", "gb", "us", "fiction"), by=c("year", "decade")){
   word_forms <- stringr::str_replace_all(word_forms, "([a-zA-z0-9])-([a-zA-z0-9])", "\\1 - \\2")
