@@ -2,12 +2,7 @@
 % Please edit documentation in R/google_ngrams.R
 \name{google_ngram}
 \alias{google_ngram}
-\title{This function extracts frequency data from Google Books' Ngram data:
-http://storage.googleapis.com/books/ngrams/books/datasetsv2.html
-The function is set up to facilitate the counting of lemmas
-and ingnore differences in capitalization.
-The user has control over what to combine into counts with
-the word_forms argument.}
+\title{Extract frequency data from Google Books Ngrams}
 \usage{
 google_ngram(
   word_forms,
@@ -23,13 +18,21 @@ google_ngram(
 \item{by}{Whether the counts should be summed by year or by decade}
 }
 \value{
-A dataframe of counts from Google Books
+A data.frame of counts from Google Books
 }
 \description{
+This function extracts frequency data from Google Books' Ngram data:
+http://storage.googleapis.com/books/ngrams/books/datasetsv2.html
+The function is set up to facilitate the counting of lemmas
+and ignore differences in capitalization.
+The user has control over what to combine into counts with
+the word_forms argument.
+}
+\details{
 NOTE!!! Google's data tables are HUGE. Sometime running into
 multiple gigabytes for simple text files. Thus, depending
 on the table being accessed, the return time can be slow.
-For example, asscessing the 1-gram Q file should take only a few seconds,
+For example, accessing the 1-gram Q file should take only a few seconds,
 but the 1-gram T file might take 10 minutes to process.
 The 2-gram, 3-gram, etc. files are even larger and slower to process.
 }
