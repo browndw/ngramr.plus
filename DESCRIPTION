@@ -6,7 +6,7 @@ Authors@R:
            family = "Brown",
            role = c("aut", "cre"),
            email = "dwb2@andrew.cmu.edu",
-           comment = c(ORCID = "YOUR-ORCID-ID"))
+           comment = c(ORCID = "0000-0001-7745-6354"))
 Description:
 	The package ngramr.plus extracts frequency data from Google Books' Ngram data:
 	http://storage.googleapis.com/books/ngrams/books/datasetsv2.html
