@@ -14,8 +14,7 @@ Description:
 	of lemmas and ingnore differences in capitalization.
 	The user has control over what to combine into counts with
 	the word_forms argument.
-License: `use_mit_license()`, `use_gpl3_license()` or friends to pick a
-    license
+License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
