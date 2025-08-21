@@ -50,17 +50,17 @@ In current usage, *zinger* denotes a kind of cutting quip. Its [supposed origin]
 To partly answer such a question, we can plot the data:
 
 ```{r year_plot, fig.height=4.5, fig.width=7}
-  ggplot(z_year %>% filter(Year > 1799), aes(x=Year, y=Per_10.6)) +
-    geom_point(size = .5) +
-    geom_smooth(method = "gam", formula = y ~ s(x, bs = "cs"), size=.25) +
-    labs(x="year", y = "frequency (per million words)")+ 
-    theme(panel.grid.minor.x=element_blank(),
-          panel.grid.major.x=element_blank()) +
-    theme(panel.grid.minor.y =   element_blank(),
-          panel.grid.major.y =   element_line(colour = "gray",size=0.25)) +
-    theme(rect = element_blank()) +
-    theme(legend.title=element_blank()) +
-    theme(axis.title = element_text(family = "Arial", color="#666666", face="bold", size=10))
+ggplot(z_year %>% filter(Year > 1799), aes(x = Year, y = Per_10.6)) +
+  geom_point(size = .5) +
+  geom_smooth(method = "gam", formula = y ~ s(x, bs = "cs"), linewidth = .25) +
+  labs(x = "year", y = "frequency (per million words)") +
+  theme(panel.grid.minor.x = element_blank(),
+        panel.grid.major.x = element_blank()) +
+  theme(panel.grid.minor.y = element_blank(),
+        panel.grid.major.y = element_line(colour = "gray", size = 0.25)) +
+  theme(rect = element_blank()) +
+  theme(legend.title = element_blank()) +
+  theme(axis.title = element_text(family = "Arial", color = "#666666", face = "bold", size = 10))
 ```
 
 There does appear to be some circulation prior to the mid-20th century. To explain that, we can look at [the underlying texts in Google Books](https://www.google.com/search?q=%22zinger%22&tbm=bks&tbs=cdr:1,cd_min:1800,cd_max:1893&lr=lang_en).
@@ -84,19 +84,17 @@ knitr::kable(head(z_decade))
 Now we can filter and plot our by-decade data:
 
 ```{r decade_plot, fig.height=4.5, fig.width=7}
-ggplot(z_decade %>% filter(Decade > 1799), aes(x=Decade, y=Per_10.6)) +
+ggplot(z_decade %>% filter(Decade > 1799), aes(x = Decade, y = Per_10.6)) +
   geom_bar(stat = "identity") +
-  labs(x="decade", y = "frequency (per million words)")+ 
-  theme(panel.grid.minor.x=element_blank(),
-         panel.grid.major.x=element_blank()) +
-  theme(panel.grid.minor.y =   element_blank(),
-        panel.grid.major.y =   element_line(colour = "gray",size=0.25)) +
+  labs(x="decade", y = "frequency (per million words)") +
+  theme(panel.grid.minor.x = element_blank(),
+         panel.grid.major.x = element_blank()) +
+  theme(panel.grid.minor.y = element_blank(),
+        panel.grid.major.y = element_line(colour = "gray", size = 0.25)) +
   theme(rect = element_blank()) +
-  theme(legend.title=element_blank()) +
-  theme(axis.title = element_text(family = "Arial", color="#666666", face="bold", size=10))
+  theme(legend.title = element_blank()) +
+  theme(axis.title = element_text(family = "Arial", color = "#666666", face = "bold", size = 10))
 ```
 
 
 ## Bibliography
-
-
