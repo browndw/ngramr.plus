@@ -6,19 +6,22 @@
 \usage{
 google_ngram(
   word_forms,
-  variety = c("eng", "gb", "us", "fiction"),
+  variety = c("eng", "gb", "us"),
   by = c("year", "decade")
 )
 }
 \arguments{
 \item{word_forms}{A vector of words or phrases to be searched}
 
-\item{variety}{The variety of English to be searched}
+\item{variety}{The variety of English to be searched. \code{eng}: all English
+(default); \code{gb}: British English; \code{us}: American English.}
 
 \item{by}{Whether the counts should be summed by year or by decade}
 }
 \value{
-A data.frame of counts from Google Books
+A \code{data.frame} of counts from Google Books. Each row is one year.
+Columns give the year, total observed frequency (AF), and frequency per
+\eqn{10^6} words.
 }
 \description{
 This function extracts frequency data from Google Books' Ngram data:
@@ -29,10 +32,15 @@ The user has control over what to combine into counts with
 the word_forms argument.
 }
 \details{
-NOTE!!! Google's data tables are HUGE. Sometime running into
-multiple gigabytes for simple text files. Thus, depending
-on the table being accessed, the return time can be slow.
-For example, accessing the 1-gram Q file should take only a few seconds,
-but the 1-gram T file might take 10 minutes to process.
-The 2-gram, 3-gram, etc. files are even larger and slower to process.
+NOTE!!! Google's data tables are HUGE. Sometime running into multiple
+gigabytes for simple text files. Thus, depending on the table being accessed,
+the return time can be slow. For example, accessing the 1-gram Q file should
+take only a few seconds, but the 1-gram T file might take 10 minutes to
+process. The 2-gram, 3-gram, etc. files are even larger and slower to
+process.
+}
+\examples{
+\dontrun{
+sherlock <- google_ngram("sherlock")
+}
 }

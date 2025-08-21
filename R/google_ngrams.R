@@ -7,21 +7,27 @@
 #' The user has control over what to combine into counts with
 #' the word_forms argument.
 #'
-#' NOTE!!! Google's data tables are HUGE. Sometime running into
-#' multiple gigabytes for simple text files. Thus, depending
-#' on the table being accessed, the return time can be slow.
-#' For example, accessing the 1-gram Q file should take only a few seconds,
-#' but the 1-gram T file might take 10 minutes to process.
-#' The 2-gram, 3-gram, etc. files are even larger and slower to process.
+#' NOTE!!! Google's data tables are HUGE. Sometime running into multiple
+#' gigabytes for simple text files. Thus, depending on the table being accessed,
+#' the return time can be slow. For example, accessing the 1-gram Q file should
+#' take only a few seconds, but the 1-gram T file might take 10 minutes to
+#' process. The 2-gram, 3-gram, etc. files are even larger and slower to
+#' process.
 #'
 #' @param word_forms A vector of words or phrases to be searched
 #' @param variety The variety of English to be searched. `eng`: all English
 #'   (default); `gb`: British English; `us`: American English.
 #' @param by Whether the counts should be summed by year or by decade
-#' @return A `data.frame` of counts from Google Books
+#' @return A `data.frame` of counts from Google Books. Each row is one year.
+#'   Columns give the year, total observed frequency (AF), and frequency per
+#'   \eqn{10^6} words.
 #' @importFrom stats aggregate
+#' @examples
+#' \dontrun{
+#' sherlock <- google_ngram("sherlock")
+#' }
 #' @export
-google_ngram <- function(word_forms, variety = c("eng", "gb", "us", "fiction"), by = c("year", "decade")) {
+google_ngram <- function(word_forms, variety = c("eng", "gb", "us"), by = c("year", "decade")) {
   variety <- match.arg(variety)
   by <- match.arg(by)
 
@@ -55,12 +61,15 @@ google_ngram <- function(word_forms, variety = c("eng", "gb", "us", "fiction"), 
   grep_words <- paste0("^", word_forms, "$", collapse = "|")
 
   all_grams <- suppressWarnings(
-    readr::read_tsv_chunked(repo, col_names = FALSE,
-                            col_types = list(X1 = readr::col_character(), X2 = readr::col_double(),
-                                             X3 = readr::col_double(), X4 = readr::col_double()),
-                            quote = "",
-                            callback = readr::DataFrameCallback$new(function(x, pos) subset(x, grepl(grep_words, x$X1, ignore.case=TRUE))),
-                            progress = TRUE))
+    readr::read_tsv_chunked(
+      repo, col_names = FALSE,
+      col_types = list(X1 = readr::col_character(), X2 = readr::col_double(),
+                       X3 = readr::col_double(), X4 = readr::col_double()),
+      quote = "",
+      callback = readr::DataFrameCallback$new(function(x, pos) {
+        subset(x, grepl(grep_words, x$X1, ignore.case = TRUE))
+      }),
+      progress = TRUE))
   colnames(all_grams) <- c("token", "Year", "AF", "pages")
 
   if (variety == "eng") total_counts <- ngramr.plus::googlebooks_eng_all_totalcounts_20120701
@@ -74,10 +83,12 @@ google_ngram <- function(word_forms, variety = c("eng", "gb", "us", "fiction"), 
   all_grams$token <- tolower(all_grams$token)
   sum_tokens <- aggregate(AF ~ Year, all_grams, sum)
 
-  if (by == "decade") sum_tokens$Decade <- gsub("\\d$", "0", sum_tokens$Year)
-  if (by == "decade") sum_tokens <- aggregate(AF ~ Decade, sum_tokens, sum)
-  if (by == "decade") sum_tokens <- merge(sum_tokens, y = total_counts[, 1:2], by = "Decade")
-  if (by == "decade") sum_tokens$Decade <- as.numeric(sum_tokens$Decade)
+  if (by == "decade") {
+    sum_tokens$Decade <- gsub("\\d$", "0", sum_tokens$Year)
+    sum_tokens <- aggregate(AF ~ Decade, sum_tokens, sum)
+    sum_tokens <- merge(sum_tokens, y = total_counts[, 1:2], by = "Decade")
+    sum_tokens$Decade <- as.numeric(sum_tokens$Decade)
+  }
   if (by == "year") sum_tokens <- merge(sum_tokens, y = total_counts[, 1:2], by = "Year")
 
   counts_norm <- mapply(function(x, y) (x / y) * 1000000, sum_tokens$AF, sum_tokens$Total)
