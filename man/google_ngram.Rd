@@ -2,45 +2,67 @@
 % Please edit documentation in R/google_ngrams.R
 \name{google_ngram}
 \alias{google_ngram}
-\title{Extract frequency data from Google Books Ngrams}
+\title{Extract frequency data from Google Books Ngram corpus}
 \usage{
 google_ngram(
   word_forms,
-  variety = c("eng", "gb", "us"),
+  variety = c("eng", "gb", "us", "fiction"),
   by = c("year", "decade")
 )
 }
 \arguments{
-\item{word_forms}{A vector of words or phrases to be searched}
+\item{word_forms}{A character vector of words or phrases to be searched.
+All forms should be lemmas of the same word (e.g., c("teenager", "teenagers")
+or c("walk", "walks", "walked")). Maximum of 5 tokens per ngram.}
 
-\item{variety}{The variety of English to be searched. \code{eng}: all English
-(default); \code{gb}: British English; \code{us}: American English.}
+\item{variety}{Character string specifying the variety of English to search.
+Options are "eng" (all English), "gb" (British English), "us" (American English),
+or "fiction" (English fiction).}
 
-\item{by}{Whether the counts should be summed by year or by decade}
+\item{by}{Character string specifying whether counts should be aggregated by
+"year" or by "decade".}
 }
 \value{
-A \code{data.frame} of counts from Google Books. Each row is one year.
-Columns give the year, total observed frequency (AF), and frequency per
-\eqn{10^6} words.
+A data.frame with the following columns:
+\describe{
+\item{Year or Decade}{Numeric year or decade}
+\item{AF}{Absolute frequency (total occurrences)}
+\item{Total}{Total words in corpus for that time period}
+\item{Per_10.6}{Normalized frequency per million words}
+}
 }
 \description{
 This function extracts frequency data from Google Books' Ngram data:
-http://storage.googleapis.com/books/ngrams/books/datasetsv2.html
+\url{http://storage.googleapis.com/books/ngrams/books/datasetsv2.html}.
 The function is set up to facilitate the counting of lemmas
 and ignore differences in capitalization.
 The user has control over what to combine into counts with
 the word_forms argument.
 }
 \details{
-NOTE!!! Google's data tables are HUGE. Sometime running into multiple
-gigabytes for simple text files. Thus, depending on the table being accessed,
-the return time can be slow. For example, accessing the 1-gram Q file should
-take only a few seconds, but the 1-gram T file might take 10 minutes to
-process. The 2-gram, 3-gram, etc. files are even larger and slower to
-process.
+NOTE!!! Google's data tables are HUGE. Sometimes running into
+multiple gigabytes for simple text files. Thus, depending
+on the table being accessed, the return time can be slow.
+For example, accessing the 1-gram Q file should take only a few seconds,
+but the 1-gram T file might take 10 minutes to process.
+The 2-gram, 3-gram, etc. files are even larger and slower to process.
+
+The function includes error handling for network issues, missing files,
+and connectivity problems. If no data is found for the specified word forms,
+a warning is issued and an empty data frame is returned.
 }
 \examples{
 \dontrun{
-sherlock <- google_ngram("sherlock")
+# Get yearly counts for "zinger" in US English
+zinger_data <- google_ngram("zinger", variety = "us", by = "year")
+head(zinger_data)
+
+# Get decade counts for multiple word forms in British English
+walk_data <- google_ngram(c("walk", "walks", "walked"), variety = "gb", by = "decade")
+head(walk_data)
+
+# Search for a phrase in all English
+phrase_data <- google_ngram("machine learning", variety = "eng", by = "year")
+head(phrase_data)
 }
 }
