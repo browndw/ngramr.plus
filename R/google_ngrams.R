@@ -23,8 +23,8 @@
 #'   All forms should be lemmas of the same word (e.g., c("teenager", "teenagers") 
 #'   or c("walk", "walks", "walked")). Maximum of 5 tokens per ngram.
 #' @param variety Character string specifying the variety of English to search. 
-#'   Options are "eng" (all English), "gb" (British English), "us" (American English), 
-#'   or "fiction" (English fiction).
+#'   Options are "eng" (all English), "gb" (British English), or "us" (American
+#'   English).
 #' @param by Character string specifying whether counts should be aggregated by 
 #'   "year" or by "decade".
 #' @return A data.frame with the following columns:
@@ -50,7 +50,10 @@
 #' phrase_data <- google_ngram("machine learning", variety = "eng", by = "year")
 #' head(phrase_data)
 #' }
-google_ngram <- function(word_forms, variety=c("eng", "gb", "us", "fiction"), by=c("year", "decade")){
+google_ngram <- function(word_forms, variety=c("eng", "gb", "us"), by=c("year", "decade")){
+  variety <- match.arg(variety)
+  by <- match.arg(by)
+
   word_forms <- stringr::str_replace_all(word_forms, "([a-zA-z0-9])-([a-zA-z0-9])", "\\1 - \\2")
   word_forms <- stringr::str_squish(word_forms)
   n <- lapply(word_forms, function(x) stringr::str_count(x, "\\S+"))
