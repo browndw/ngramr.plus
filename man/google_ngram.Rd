@@ -6,18 +6,19 @@
 \usage{
 google_ngram(
   word_forms,
-  variety = c("eng", "gb", "us", "fiction"),
+  variety = c("eng", "gb", "us"),
   by = c("year", "decade")
 )
 }
 \arguments{
 \item{word_forms}{A character vector of words or phrases to be searched.
-All forms should be lemmas of the same word (e.g., c("teenager", "teenagers")
-or c("walk", "walks", "walked")). Maximum of 5 tokens per ngram.}
+All forms should be lemmas of the same word (e.g., c("teenager",
+"teenagers") or c("walk", "walks", "walked")). Maximum of 5 tokens per
+ngram.}
 
 \item{variety}{Character string specifying the variety of English to search.
-Options are "eng" (all English), "gb" (British English), "us" (American English),
-or "fiction" (English fiction).}
+Options are "eng" (all English), "gb" (British English), or "us"
+(American English).}
 
 \item{by}{Character string specifying whether counts should be aggregated by
 "year" or by "decade".}
@@ -58,7 +59,8 @@ zinger_data <- google_ngram("zinger", variety = "us", by = "year")
 head(zinger_data)
 
 # Get decade counts for multiple word forms in British English
-walk_data <- google_ngram(c("walk", "walks", "walked"), variety = "gb", by = "decade")
+walk_data <- google_ngram(c("walk", "walks", "walked"), variety = "gb",
+                          by = "decade")
 head(walk_data)
 
 # Search for a phrase in all English
