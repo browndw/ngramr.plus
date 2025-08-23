@@ -12,7 +12,7 @@
 #'   \item{Volumes}{Numeric. Total number of volumes (books) published in that year}
 #' }
 #' @source Google Books Ngram Datasets, Version 2 (July 2012)
-#'   \url{http://storage.googleapis.com/books/ngrams/books/datasetsv2.html}
+#'   \url{https://books.google.com/ngrams/datasets}
 #' @references
 #'   Michel, J. B., Shen, Y. K., Aiden, A. P., Veres, A., Gray, M. K., 
 #'   Pickett, J. P., ... & Orwant, J. (2011). Quantitative analysis of culture 
@@ -39,7 +39,7 @@
 #'   \item{Volumes}{Numeric. Total number of volumes (books) published in that year}
 #' }
 #' @source Google Books Ngram Datasets, Version 2 (July 2012)
-#'   \url{http://storage.googleapis.com/books/ngrams/books/datasetsv2.html}
+#'   \url{https://books.google.com/ngrams/datasets}
 #' @references
 #'   Michel, J. B., Shen, Y. K., Aiden, A. P., Veres, A., Gray, M. K., 
 #'   Pickett, J. P., ... & Orwant, J. (2011). Quantitative analysis of culture 
@@ -66,7 +66,7 @@
 #'   \item{Volumes}{Numeric. Total number of volumes (books) published in that year}
 #' }
 #' @source Google Books Ngram Datasets, Version 2 (July 2012)
-#'   \url{http://storage.googleapis.com/books/ngrams/books/datasetsv2.html}
+#'   \url{https://books.google.com/ngrams/datasets}
 #' @references
 #'   Michel, J. B., Shen, Y. K., Aiden, A. P., Veres, A., Gray, M. K., 
 #'   Pickett, J. P., ... & Orwant, J. (2011). Quantitative analysis of culture 

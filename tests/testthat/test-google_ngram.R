@@ -1,21 +1,23 @@
 test_that("google_ngram input validation works correctly", {
+  # Skip tests that require the function to be loaded in interactive mode
+  skip_if_not_installed("ngramr.plus")
   
   # Test for mixed ngram lengths (should fail)
   expect_error(
-    google_ngram(c("cat", "big dog")),
+    ngramr.plus::google_ngram(c("cat", "big dog")),
     "Check spelling. Word forms should be lemmas of the same word"
   )
   
   # Test for too many tokens (should fail)
   expect_error(
-    google_ngram("this is a very long six word phrase"),
+    ngramr.plus::google_ngram("this is a very long six word phrase"),
     "Ngrams can be a maximum of 5 tokens"
   )
   
   # Test for mixed starting letters - this might fail differently due to the bug
   # Let's test this more carefully
   expect_error(
-    google_ngram(c("cat", "dog")),
+    ngramr.plus::google_ngram(c("cat", "dog")),
     regex = "condition has length|Check spelling"
   )
 })

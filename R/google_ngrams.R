@@ -1,7 +1,7 @@
 #' Extract frequency data from Google Books Ngram corpus
 #'
 #' This function extracts frequency data from Google Books' Ngram data:
-#' \url{http://storage.googleapis.com/books/ngrams/books/datasetsv2.html}.
+#' \url{https://books.google.com/ngrams/datasets}.
 #' The function is set up to facilitate the counting of lemmas
 #' and ignore differences in capitalization.
 #' The user has control over what to combine into counts with

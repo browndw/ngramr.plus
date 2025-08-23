@@ -15,7 +15,7 @@ A data frame with 447 rows and 4 variables:
 }
 \source{
 Google Books Ngram Datasets, Version 2 (July 2012)
-\url{http://storage.googleapis.com/books/ngrams/books/datasetsv2.html}
+\url{https://books.google.com/ngrams/datasets}
 }
 \usage{
 googlebooks_eng_gb_all_totalcounts_20120701

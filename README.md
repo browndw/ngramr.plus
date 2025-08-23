@@ -17,7 +17,13 @@ The advantage of **ngramr.plus** is that it returns the underlying data, enablin
 
 ## Installing ngramr.plus
 
-Use devtools to install the package.
+Install from CRAN:
+
+```r
+install.packages("ngramr.plus")
+```
+
+Or install the development version from GitHub:
 
 ```r
 devtools::install_github("browndw/ngramr.plus")

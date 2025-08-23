@@ -4,7 +4,7 @@
 
 * Initial CRAN release of ngramr.plus
 * `google_ngram()` function for extracting frequency data from Google Books Ngram corpus
-* Support for multiple English varieties: all English ("eng"), British English ("gb"), American English ("us"), and English fiction ("fiction")
+* Support for multiple English varieties: all English ("eng"), British English ("gb"), and American English ("us")
 * Flexible aggregation by year or decade
 * Support for 1-5 gram searches with automatic file detection
 * Comprehensive error handling for network issues and data availability
