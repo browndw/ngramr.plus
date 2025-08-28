@@ -118,15 +118,15 @@ The package includes comprehensive error handling for:
 library(ngramr.plus)
 library(ggplot2)
 
-# Analyze the rise of "internet" terminology
-internet_data <- google_ngram(c("internet", "web", "online"), 
-                              variety = "eng", by = "year")
+# Analyze the rise of technology terminology starting with 'c'
+tech_data <- google_ngram(c("computer", "computing", "cyber"), 
+                          variety = "eng", by = "year")
 
 # Plot the trend
-ggplot(internet_data, aes(x = Year, y = Per_10.6)) +
+ggplot(tech_data, aes(x = Year, y = Per_10.6)) +
   geom_line() +
   geom_point() +
-  labs(title = "Rise of Internet Terminology",
+  labs(title = "Rise of Computing Terminology",
        x = "Year", 
        y = "Frequency (per million words)") +
   theme_minimal()
